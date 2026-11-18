@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#402080"><title>DerickStay — Find a place to call home</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-mark">D</span> DerickStay</a>
+  <nav><a href="#homes">Explore</a><a href="#how">How it works</a></nav>
+  <div class="nav-actions"><button id="openAuth" class="btn btn-outline">Sign in</button><button id="openRegister" class="btn btn-primary">Create account</button><button id="signOut" class="btn btn-outline hidden">Sign out</button></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="hero-copy"><p class="eyebrow">A better way to find your next home</p><h1>Find a place<br><span>that feels like home.</span></h1><p>Discover houses, apartments and rental spaces listed by their owners.</p>
+      <div class="searchbar"><input id="searchInput" placeholder="Search by town, estate or property name"><select id="typeFilter"><option value="">All property types</option><option>House</option><option>Apartment</option><option>Room</option></select><button id="searchBtn" class="btn btn-primary">Search</button></div>
+    </div>
+    <div class="hero-art"><div class="art-card"><div class="art-window"></div><div class="art-line"></div><div class="art-line short"></div><div class="art-tag">Your next chapter starts here</div></div></div>
+  </section>
+  <section id="homes" class="section"><div class="section-head"><div><p class="eyebrow">Discover spaces</p><h2>Available properties</h2></div><button id="listProperty" class="btn btn-primary">＋ List your property</button></div>
+    <div id="propertyGrid" class="property-grid"><div class="empty">Loading available properties…</div></div>
+  </section>
+  <section id="how" class="how section"><p class="eyebrow">Simple and secure</p><h2>How DerickStay works</h2><div class="steps"><article><b>01</b><h3>Create an account</h3><p>Verify your email and set up your profile.</p></article><article><b>02</b><h3>List or explore</h3><p>Owners upload property details and up to seven photos.</p></article><article><b>03</b><h3>Connect directly</h3><p>Contact property owners to arrange a viewing.</p></article></div></section>
+</main>
+<footer><b>DerickStay</b><span>Find a place. Make it yours.</span><span>© <span id="year"></span> DerickStay</span></footer>
+
+<div id="authModal" class="modal hidden"><div class="modal-card"><button class="close" data-close>×</button><p class="eyebrow">Welcome to DerickStay</p><h2 id="authTitle">Create your account</h2><form id="authForm"><label>Email<input id="authEmail" type="email" placeholder="Email" required></label><label>Password<input id="authPassword" type="password" minlength="8" placeholder="Password (at least 8 characters)" required></label><button class="btn btn-primary full" id="authSubmit">Create account</button></form><p id="authMessage" class="message"></p><p class="switch-auth"><span id="switchText">Already have an account?</span> <button id="switchAuth" class="text-btn">Sign in</button></p></div></div>
+
+<div id="profileModal" class="modal hidden"><div class="modal-card wide"><button class="close" data-close>×</button><p class="eyebrow">Your account</p><h2>Profile settings</h2><form id="profileForm"><label>Display name<input id="displayName" maxlength="60" placeholder="Your name"></label><label>Bio <small id="bioCount">0 / 177 words</small><textarea id="bio" rows="4" placeholder="Tell people a little about yourself (maximum 177 words)"></textarea></label><label>Profile picture<input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp"></label><p class="hint">Profile pictures are screened for signs of AI generation. Automated screening can make mistakes and cannot prove that a photo is genuine.</p><button class="btn btn-primary">Save profile</button></form><p id="profileMessage" class="message"></p></div></div>
+
+<div id="listingModal" class="modal hidden"><div class="modal-card wide"><button class="close" data-close>×</button><p class="eyebrow">Property owner tools</p><h2 id="listingTitle">Add a property</h2><form id="listingForm"><input type="hidden" id="listingId"><div class="form-grid"><label>Property title<input id="propertyTitle" required maxlength="100" placeholder="e.g. Modern two-bedroom apartment"></label><label>Property type<select id="propertyType" required><option>House</option><option>Apartment</option><option>Room</option></select></label><label>Town / city<input id="propertyLocation" required placeholder="e.g. Eldoret"></label><label>Monthly rent (KES)<input id="propertyPrice" type="number" min="0" required placeholder="25000"></label></div><label>Description<textarea id="propertyDescription" rows="4" maxlength="1500" required placeholder="Describe the property, amenities and terms"></textarea></label><label>Property photos (maximum 7)<input id="propertyPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><p class="hint">Choose up to seven images. If editing, newly selected photos are added to the existing photos, up to seven total.</p><div id="photoPreview" class="photo-preview"></div><button class="btn btn-primary">Publish property</button></form><p id="listingMessage" class="message"></p></div></div>
+
+<div id="dashboardModal" class="modal hidden"><div class="modal-card wide"><button class="close" data-close>×</button><div class="section-head"><div><p class="eyebrow">Your DerickStay</p><h2>Account dashboard</h2></div><button id="editProfile" class="btn btn-outline">Edit profile</button></div><div id="dashboardContent"></div></div></div>
+<div id="profileViewModal" class="modal hidden"><div class="modal-card wide"><button class="close" data-close>×</button><div id="profileViewContent"></div></div></div>
+<div id="toast" class="toast"></div>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
